@@ -10,9 +10,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_12_144454) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_12_175729) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "amazon_ready_images", force: :cascade do |t|
+    t.bigint "uploaded_images_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["uploaded_images_id"], name: "index_amazon_ready_images_on_uploaded_images_id"
+  end
+
+  create_table "profiles", force: :cascade do |t|
+    t.string "bio"
+    t.string "profession"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_profiles_on_user_id"
+  end
+
+  create_table "uploaded_images", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_uploaded_images_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -28,4 +51,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_12_144454) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "amazon_ready_images", "uploaded_images", column: "uploaded_images_id"
+  add_foreign_key "profiles", "users"
+  add_foreign_key "uploaded_images", "users"
 end

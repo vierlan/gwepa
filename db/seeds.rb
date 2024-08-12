@@ -9,7 +9,11 @@
 #   end
 
 # Destroy all users
+Profile.destroy_all
 User.destroy_all
 
 # Create an admin user with email and password and username
 User.create!(email: 'lan@la.la', password: 123456, username: 'Lan', admin: true)
+
+# Create a profile for user with bio and profession
+Profile.create!(user_id: 1, bio: 'I am a software developer', profession: 'Software Developer')

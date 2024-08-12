@@ -1,0 +1,2 @@
+class AmazonReadyImagesController < ApplicationController
+end
